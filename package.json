@@ -2,22 +2,149 @@
   "name": "treeprojectmanager",
   "displayName": "TreeProjectManager",
   "description": "",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "publisher": "nitreb",
   "engines": {
     "vscode": "^1.83.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreb/vsc-tree-project-manager.git"
+  },
   "main": "./out/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tree-project-manager",
+          "title": "Tree project manager",
+          "icon": "$(folder)"
+        }
+      ]
+    },
+    "views": {
+      "tree-project-manager": [
+        {
+          "id": "treeProjectManager",
+          "name": "Tree project manager"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "treeProjectManager",
+        "contents": "No project imported.\n[Fetch unimported project](command:treeprojectmanager.fetchUnimportedProjects)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "treeprojectmanager.fetchUnimportedProjects",
+          "when": "view == treeProjectManager",
+          "group": "navigation"
+        },
+        {
+          "command": "treeprojectmanager.newFolder",
+          "when": "view == treeProjectManager",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "treeprojectmanager.editFolderName",
+          "when": "view == treeProjectManager && viewItem == folderItem",
+          "title": "Edit folder name",
+          "group": "navigation"
+        },
+        {
+          "command": "treeprojectmanager.editProjectName",
+          "when": "view == treeProjectManager && viewItem == projectItem",
+          "title": "Edit project name",
+          "group": "navigation"
+        },
+        {
+          "command": "treeprojectmanager.openProject",
+          "when": "view == treeProjectManager && viewItem == projectItem",
+          "title": "Open project",
+          "group": "inline"
+        },
+        {
+          "command": "treeprojectmanager.newFolder",
+          "when": "view == treeProjectManager",
+          "title": "New folder",
+          "group": "folder@1"
+        },
+        {
+          "command": "treeprojectmanager.deleteFolder",
+          "when": "view == treeProjectManager",
+          "title": "Delete folder",
+          "group": "folder@2"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "treeprojectmanager.helloWorld",
-        "title": "Hello World"
+        "command": "treeprojectmanager.fetchUnimportedProjects",
+        "title": "Fetch unimported projects",
+        "icon": "$(extensions-refresh)"
+      },
+      {
+        "command": "treeprojectmanager.editFolderName",
+        "title": "Edit folder name",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "treeprojectmanager.editProjectName",
+        "title": "Edit project name",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "treeprojectmanager.openProject",
+        "title": "Open project",
+        "icon": "$(link-external)"
+      },
+      {
+        "command": "treeprojectmanager.newFolder",
+        "title": "New folder",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "treeprojectmanager.deleteFolder",
+        "title": "Delete folder"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Tree project manager",
+      "properties": {
+        "treeProjectManager.baseWorkspaceDirectories": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "Base workspace directories where to look for projects"
+        },
+        "treeProjectManager.excludedFolders": {
+          "type": "array",
+          "default": [
+            "node_modules",
+            "test"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Folders to exclude when looking for project"
+        },
+        "treeProjectManager.maximumDepthRecursion": {
+          "type": "integer",
+          "default": 2,
+          "description": "Maximum folder depth recusrion when looking for project"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -25,18 +152,25 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
-    "@types/vscode": "^1.83.0",
     "@types/mocha": "^10.0.2",
     "@types/node": "18.x",
+    "@types/vscode": "^1.83.0",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
+    "@vscode/test-electron": "^2.3.4",
     "eslint": "^8.50.0",
     "glob": "^10.3.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
     "mocha": "^10.2.0",
-    "typescript": "^5.2.2",
-    "@vscode/test-electron": "^2.3.4"
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
   }
 }
