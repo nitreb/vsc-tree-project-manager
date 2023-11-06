@@ -13,6 +13,7 @@ import {
   ProjectItemObject,
   projectItemFromObject,
 } from "./TreeItems/TreeObjectItem";
+import { TreeProjectItem } from "./TreeItems/TreeProjectItem";
 
 export class TreeProjectManager
   implements
@@ -59,17 +60,7 @@ export class TreeProjectManager
     const treeItems: TreeItem[] = transferItem.value;
     treeItems.forEach((treeItem) => {
       this.removeTreeItemFromRootProjectTree(treeItem);
-      if (target) {
-        if (target instanceof TreeProjectManager) {
-          getTreeItemParent(target, this.rootProjectTree).children.push(
-            treeItem,
-          );
-        } else if (target instanceof TreeFolderItem) {
-          target.children.push(treeItem);
-        }
-      } else {
-        this.rootProjectTree.children.push(treeItem);
-      }
+      this._addTreeItemToTreeItemTarget(treeItem, target);
     });
     this.refreshViewAndSaveTreeConfiguration();
   }
@@ -153,22 +144,27 @@ export class TreeProjectManager
     removeTreeItemFromTreeFolderItem(treeItem, this.rootProjectTree);
   }
 
-  addFolderToTreeFolderItem(
+  private _addTreeItemToTreeItemTarget(
+    treeItemToAdd: TreeItem,
+    treeItemTarget?: TreeItem,
+  ) {
+    let targetTreeFolderItem: TreeFolderItem = this.rootProjectTree;
+    if (treeItemTarget instanceof TreeProjectItem) {
+      targetTreeFolderItem =
+        getTreeItemParent(treeItemTarget, this.rootProjectTree) ||
+        targetTreeFolderItem;
+    } else if (treeItemTarget instanceof TreeFolderItem) {
+      targetTreeFolderItem = treeItemTarget;
+    }
+    targetTreeFolderItem.children.push(treeItemToAdd);
+  }
+
+  createFolderToTreeFolderItem(
     folderName: string,
     treeFolderItem: TreeItem | undefined,
   ) {
     const newFolder = new TreeFolderItem(folderName, []);
-    if (treeFolderItem) {
-      if (treeFolderItem instanceof TreeFolderItem) {
-        treeFolderItem.children.push(newFolder);
-      } else {
-        getTreeItemParent(treeFolderItem, this.rootProjectTree).children.push(
-          newFolder,
-        );
-      }
-    } else {
-      this.rootProjectTree.children.push(newFolder);
-    }
+    this._addTreeItemToTreeItemTarget(newFolder, treeFolderItem);
     this.refreshViewAndSaveTreeConfiguration();
   }
 }

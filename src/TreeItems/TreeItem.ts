@@ -5,19 +5,21 @@ export type TreeItem = TreeFolderItem | TreeProjectItem;
 
 export function getTreeItemParent(
   treeItem: TreeItem,
-  rootTree: TreeFolderItem,
-): TreeFolderItem {
-  for (let i = 0; i < rootTree.children.length; i += 1) {
-    const children = rootTree.children[i];
+  treeToSearch: TreeFolderItem,
+): TreeFolderItem | undefined {
+  for (let i = 0; i < treeToSearch.children.length; i += 1) {
+    const children = treeToSearch.children[i];
     if (treeItem === children) {
-      return rootTree;
+      return treeToSearch;
     } else {
       if (children instanceof TreeFolderItem) {
-        return getTreeItemParent(treeItem, children);
+        let parentInSubtree = getTreeItemParent(treeItem, children);
+        if (parentInSubtree) {
+          return parentInSubtree;
+        }
       }
     }
   }
-  return rootTree;
 }
 
 export function removeTreeItemFromTreeFolderItem(

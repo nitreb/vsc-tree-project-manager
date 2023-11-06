@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
           })
           .then((folderName) => {
             if (folderName) {
-              treeProjectManager.addFolderToTreeFolderItem(
+              treeProjectManager.createFolderToTreeFolderItem(
                 folderName,
                 projectItem,
               );
