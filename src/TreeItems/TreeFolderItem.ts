@@ -1,12 +1,14 @@
 import * as vscode from "vscode";
-import { TreeItem } from "./TreeItem";
+import { TreeItem, compareTreeItems } from "./TreeItem";
 import { ProjectItemObject } from "./TreeObjectItem";
 
 export class TreeFolderItem extends vscode.TreeItem {
+  label: string;
   children: TreeItem[];
 
   constructor(label: string, children: TreeItem[]) {
     super(label, vscode.TreeItemCollapsibleState.Expanded);
+    this.label = label;
     this.tooltip = `${this.label}`;
     this.children = children;
     this.iconPath = new vscode.ThemeIcon("folder");
@@ -32,6 +34,15 @@ export class TreeFolderItem extends vscode.TreeItem {
       children: this.children.map((child) => child.toJSON()),
       type: "folder",
     };
+  }
+
+  recursivelySortChildren() {
+    this.children.sort(compareTreeItems);
+    this.children.forEach((child) => {
+      if (child instanceof TreeFolderItem) {
+        child.recursivelySortChildren();
+      }
+    });
   }
 }
 

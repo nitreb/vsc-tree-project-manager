@@ -1,4 +1,4 @@
-import { TreeFolderItem } from "./TreeFolderItem";
+import { TreeFolderItem, UnsortedTreeFolderItem } from "./TreeFolderItem";
 import { TreeProjectItem } from "./TreeProjectItem";
 
 export type TreeItem = TreeFolderItem | TreeProjectItem;
@@ -36,4 +36,45 @@ export function removeTreeItemFromTreeFolderItem(
       }
     });
   }
+}
+
+function _compareTreeItemLabel(labelA: string, labelB: string) {
+  if (labelA < labelB) {
+    return -1;
+  }
+  if (labelA > labelB) {
+    return 1;
+  }
+  return 0;
+}
+
+export function compareTreeItems(
+  treeItemA: TreeItem,
+  treeItemB: TreeItem,
+): number {
+  if (treeItemA instanceof UnsortedTreeFolderItem) {
+    return 1;
+  }
+  if (treeItemB instanceof UnsortedTreeFolderItem) {
+    return -1;
+  }
+  if (treeItemA.constructor === treeItemB.constructor) {
+    return _compareTreeItemLabel(
+      treeItemA.label.toString().toUpperCase(),
+      treeItemB.label.toString().toUpperCase(),
+    );
+  }
+  if (
+    treeItemA instanceof TreeFolderItem &&
+    treeItemB instanceof TreeProjectItem
+  ) {
+    return -1;
+  }
+  if (
+    treeItemA instanceof TreeProjectItem &&
+    treeItemB instanceof TreeFolderItem
+  ) {
+    return 1;
+  }
+  return 0;
 }

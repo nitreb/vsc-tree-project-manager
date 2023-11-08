@@ -97,6 +97,7 @@ export class TreeProjectManager
   }
 
   refreshViewAndSaveTreeConfiguration() {
+    this.rootProjectTree.recursivelySortChildren();
     this._onDidChangeTreeData.fire();
     const jsonProjectTree = JSON.stringify(
       this.rootProjectTree.children.map((projectItem: TreeItem) => {
