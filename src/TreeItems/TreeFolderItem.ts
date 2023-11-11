@@ -49,6 +49,7 @@ export class TreeFolderItem extends vscode.TreeItem {
 export class UnsortedTreeFolderItem extends TreeFolderItem {
   constructor(children: TreeItem[]) {
     super("Unsorted", children);
+    this.iconPath = new vscode.ThemeIcon("files");
   }
 
   toJSON(): ProjectItemObject {
