@@ -1,6 +1,6 @@
 # Tree project manager
 
-**Tree Project Manager** is a VSCode extension that let you organise and open your projects directly from an easily accessible sidebar view.
+**Tree Project Manager** is a VSCode extension that let you organise and open your projects directly from an easily accessible sidebar tree view.
 
 ## Features
 
@@ -9,7 +9,7 @@
   - You can add, drag and drop and delete folders
   - Same for the projects, that you can then organize per folder
   - Possibility to rename folders and projects
-  - Open projects in one click
+  - Open project in one click
 
 ## Extension Settings
 

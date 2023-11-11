@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Import non-git project
 - Write tests
 
+## [1.1.0] - 2023-11-11
+
+### Added
+
+- Extension is now called "Tree Project Manager" in the extension store
+- Elements in the tree are sorted (#2)
+- Unsorted folder has a new icon, and cannot be moved
+
+### Fixed
+
+- Dropping an item into a project correctly adds it to the parent folder (#1)
+
 ## [1.0.0] - 2023-11-05
 
 ### Added
