@@ -59,8 +59,10 @@ export class TreeProjectManager
     }
     const treeItems: TreeItem[] = transferItem.value;
     treeItems.forEach((treeItem) => {
-      this.removeTreeItemFromRootProjectTree(treeItem);
-      this._addTreeItemToTreeItemTarget(treeItem, target);
+      if (!(treeItem instanceof UnsortedTreeFolderItem)) {
+        this.removeTreeItemFromRootProjectTree(treeItem);
+        this._addTreeItemToTreeItemTarget(treeItem, target);
+      }
     });
     this.refreshViewAndSaveTreeConfiguration();
   }
