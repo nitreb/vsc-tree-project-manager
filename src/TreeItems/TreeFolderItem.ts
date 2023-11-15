@@ -6,8 +6,13 @@ export class TreeFolderItem extends vscode.TreeItem {
   label: string;
   children: TreeItem[];
 
-  constructor(label: string, children: TreeItem[]) {
-    super(label, vscode.TreeItemCollapsibleState.Expanded);
+  constructor(label: string, children: TreeItem[], isCollapsed: boolean) {
+    super(
+      label,
+      isCollapsed
+        ? vscode.TreeItemCollapsibleState.Collapsed
+        : vscode.TreeItemCollapsibleState.Expanded,
+    );
     this.label = label;
     this.tooltip = `${this.label}`;
     this.children = children;
@@ -32,6 +37,8 @@ export class TreeFolderItem extends vscode.TreeItem {
       label: this.label as string,
       path: undefined,
       children: this.children.map((child) => child.toJSON()),
+      isCollapsed:
+        this.collapsibleState === vscode.TreeItemCollapsibleState.Collapsed,
       type: "folder",
     };
   }
@@ -47,8 +54,8 @@ export class TreeFolderItem extends vscode.TreeItem {
 }
 
 export class UnsortedTreeFolderItem extends TreeFolderItem {
-  constructor(children: TreeItem[]) {
-    super("Unsorted", children);
+  constructor(children: TreeItem[], isCollapsed: boolean) {
+    super("Unsorted", children, isCollapsed);
     this.iconPath = new vscode.ThemeIcon("files");
   }
 
@@ -57,6 +64,8 @@ export class UnsortedTreeFolderItem extends TreeFolderItem {
       label: this.label as string,
       path: undefined,
       children: this.children.map((child) => child.toJSON()),
+      isCollapsed:
+        this.collapsibleState === vscode.TreeItemCollapsibleState.Collapsed,
       type: "unsorted",
     };
   }

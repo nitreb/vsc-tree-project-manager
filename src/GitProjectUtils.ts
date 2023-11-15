@@ -23,7 +23,7 @@ export function getUnimportedGitProjects(
       ),
     );
   });
-  return new UnsortedTreeFolderItem(unimportedGitProjects);
+  return new UnsortedTreeFolderItem(unimportedGitProjects, false);
 }
 
 function _getUnimportedGitProjectsInDirectory(

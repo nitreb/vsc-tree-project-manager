@@ -20,7 +20,7 @@ export class TreeProjectManager
     vscode.TreeDataProvider<TreeItem>,
     vscode.TreeDragAndDropController<TreeItem>
 {
-  rootProjectTree: TreeFolderItem = new TreeFolderItem("root", []);
+  rootProjectTree: TreeFolderItem = new TreeFolderItem("root", [], false);
   dropMimeTypes = ["application/vnd.code.tree.projectTreeProvider"];
   dragMimeTypes = ["text/uri-list"];
 
@@ -166,7 +166,7 @@ export class TreeProjectManager
     folderName: string,
     treeFolderItem: TreeItem | undefined,
   ) {
-    const newFolder = new TreeFolderItem(folderName, []);
+    const newFolder = new TreeFolderItem(folderName, [], false);
     this._addTreeItemToTreeItemTarget(newFolder, treeFolderItem);
     this.refreshViewAndSaveTreeConfiguration();
   }

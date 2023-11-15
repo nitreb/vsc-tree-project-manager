@@ -28,6 +28,7 @@ export class TreeProjectItem extends vscode.TreeItem {
       label: this.label as string,
       path: this.resourceUri.path,
       children: undefined,
+      isCollapsed: false,
       type: "project",
     };
   }
