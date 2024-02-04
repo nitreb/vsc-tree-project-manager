@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Import non-git project
 - Write tests
 
+## [1.1.1] - 2024-02-04
+
+### Added
+
+- Folder collapsed state is kept between session
+
 ## [1.1.0] - 2023-11-11
 
 ### Added
