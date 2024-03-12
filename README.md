@@ -26,3 +26,7 @@ There is currently no know issues for this project. If you think you experienced
 ## Release Notes
 
 See `CHANGELOG.md`.
+
+## TEST SIMON
+
+Test N°1
