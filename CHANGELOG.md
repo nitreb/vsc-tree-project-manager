@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Import non-git project
 - Write tests
 
+## [1.1.2] - 2024-04-07
+
+### Fixed
+
+- Tree is no longer synchronised between devices
+- Folders' collapsible state is saved
+
 ## [1.1.1] - 2024-02-04
 
 ### Added

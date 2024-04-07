@@ -2,7 +2,7 @@
   "name": "treeprojectmanager",
   "displayName": "Tree Project Manager",
   "description": "Tree Project Manager is a VSCode extension that let you organise and open your projects directly from an easily accessible sidebar tree view.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "publisher": "nitreb",
   "engines": {
     "vscode": "^1.83.0"
