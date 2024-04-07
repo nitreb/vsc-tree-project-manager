@@ -169,4 +169,12 @@ export class TreeProjectManager
     this._addTreeItemToTreeItemTarget(newFolder, treeFolderItem);
     this.refreshViewAndSaveTreeConfiguration();
   }
+
+  setTreeItemCollapsibleState(
+    treeItem: TreeItem,
+    collapsibleState: vscode.TreeItemCollapsibleState,
+  ) {
+    treeItem.collapsibleState = collapsibleState;
+    this.refreshViewAndSaveTreeConfiguration();
+  }
 }
