@@ -65,9 +65,22 @@ export function activate(context: vscode.ExtensionContext) {
       },
     ),
   );
-  vscode.window.createTreeView("treeProjectManager", {
+  const treeView = vscode.window.createTreeView("treeProjectManager", {
     treeDataProvider: treeProjectManager,
     dragAndDropController: treeProjectManager,
+  });
+
+  treeView.onDidCollapseElement((e) => {
+    treeProjectManager.setTreeItemCollapsibleState(
+      e.element,
+      vscode.TreeItemCollapsibleState.Collapsed,
+    );
+  });
+  treeView.onDidExpandElement((e) => {
+    treeProjectManager.setTreeItemCollapsibleState(
+      e.element,
+      vscode.TreeItemCollapsibleState.Expanded,
+    );
   });
 }
 
