@@ -107,7 +107,6 @@ export class TreeProjectManager
       }),
     );
     this.globalState.update("projectTree", jsonProjectTree);
-    this.globalState.setKeysForSync(["projectTree"]);
   }
 
   fetchUnimportedProjects() {
